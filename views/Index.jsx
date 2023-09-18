@@ -5,6 +5,9 @@ const myStyle = {
     color: '#ffffff',
     backgroundColor: '#000000',
     };
+const upperCase = {
+    textTransform:'capitalize'
+}
 
 class Index extends React.Component {
   render() {
@@ -12,23 +15,19 @@ class Index extends React.Component {
       return (
               <div style = {myStyle}>
                   <h1>See All Pokemon</h1>
-                  {/* <ul>
+                  <ul>
                       {pokemon.map((onePokemon, i) => {
                           return (
-                              <li>
-                                  The{' '}
+                              <li style = {upperCase}>
+                                  
                                   <a href={`/onePokemon/${i}`}>
                                       {onePokemon.name}
                                   </a>{' '}
-                                  is {onePokemon.color} <br></br>
-                                  {onePokemon.readyToEat
-                                      ? `It is ready to eat`
-                                      : `It is not ready to eat`}
-                                  <br />
+                               
                               </li>
                           );
                       })}
-                  </ul> */}
+                  </ul>
               </div>
       );
   }
