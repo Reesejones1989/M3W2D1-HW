@@ -6,7 +6,8 @@ const myStyle = {
     backgroundColor: '#000000',
     };
 const upperCase = {
-    textTransform:'capitalize'
+    textTransform:'capitalize',
+    fontSize: "20px",
 }
 
 class Index extends React.Component {
@@ -20,7 +21,7 @@ class Index extends React.Component {
                           return (
                               <li style = {upperCase}>
                                   
-                                  <a href={`/onePokemon/${i}`}>
+                                  <a href={`/pokemon/${i}`}>
                                       {onePokemon.name}
                                   </a>{' '}
                                
