@@ -9,7 +9,11 @@ const upperCase = {
     textTransform:'capitalize',
     fontSize: "20px",
 }
-
+const back = {
+    textTransform: 'uppercase',
+    color: '#ffffff',
+    fontSize: "50px"
+}
 class Index extends React.Component {
   render() {
       const { pokemon } = this.props;
@@ -29,6 +33,10 @@ class Index extends React.Component {
                           );
                       })}
                   </ul>
+                        <nav>
+                        <a style={back}
+                        href="/pokemon/new">Submit a New Pokemon</a>
+                        </nav>
               </div>
       );
   }
