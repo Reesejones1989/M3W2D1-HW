@@ -8,11 +8,15 @@ const myStyle = {
 const upperCase = {
     textTransform:'capitalize',
     fontSize: "20px",
+    color: "green"
 }
 const back = {
     textTransform: 'uppercase',
     color: '#ffffff',
     fontSize: "50px"
+}
+const pokemonName = {
+    color: "white",
 }
 class Index extends React.Component {
   render() {
@@ -23,12 +27,14 @@ class Index extends React.Component {
                   <ul>
                       {pokemon.map((onePokemon, i) => {
                           return (
-                              <li style = {upperCase}>
+                              <li key ={i} style = {upperCase}>
                                   
-                                  <a href={`/pokemon/${i}`}>
+                                  <a style={pokemonName} href={`/pokemon/${i}`}>
                                       {onePokemon.name}
                                   </a>{' '}
-                               
+                                  <form action={`/pokemon/${i}?_method=DELETE`} method="POST"><input type="submit" value="DELETE"/>
+                                 </form> 
+                      {/* <a href={`/pokemon/${i}/edit`}>Edit This Pokemon</a> */}
                               </li>
                           );
                       })}
