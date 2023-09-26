@@ -17,19 +17,22 @@ const upperCase = {
 
 class Show extends React.Component {
   render() {
-      const pokemon = this.props.onePokemon;
+      // const pokemon = this.props.onePokemon;
+      const onePokemon = this.props.onePokemon;
       const url = "https://img.pokemondb.net/artwork/"
-      var loweredName = pokemon.name.toLowerCase()
-        const namejpg = loweredName + ".jpg"
+      
+       var loweredName = onePokemon.name.toLowerCase()
+       const namejpg = loweredName + ".jpg"
+        console.log(onePokemon)
        
       return (
               <div style = {myStyle}>
                   <h1>Gotta Catch 'Em All</h1>
-                <h2 style={upperCase}>{pokemon.name}</h2>
+                <h2 style={upperCase}>{onePokemon.name}</h2>
 
 
                
-                <img src={url + namejpg} >
+                <img src={url + namejpg + ".jpg"} >
                 </img>
 
                 

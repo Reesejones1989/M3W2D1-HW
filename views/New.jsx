@@ -8,7 +8,7 @@ class New extends React.Component {
 
             <form action="/pokemon" method="POST">
               Name: <input type="text" name="name" /><br/>
-              {/* Image Link: <input type="text" value = "https://img.pokemondb.net/artwork/" name="Img" /> */}
+              Image Link: <input type="text" defaultValue = "https://img.pokemondb.net/artwork/" name="img" />
               <input type="submit" name="" value="New Pokemon Submit"/>
             </form>
         </div>);

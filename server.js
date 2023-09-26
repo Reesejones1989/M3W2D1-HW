@@ -3,10 +3,12 @@ const app = express();
 const jsxEngine = require('jsx-view-engine')
 const port = 3001;
 const dotenv = require("dotenv")
-// const mongoose = require('mongoose');
-// const methodOverride = require('method-override');
+const mongoose = require('mongoose');
+const methodOverride = require('method-override');
+// const _id = mongoose.Types._id
 
-const pokemon = require("./models/pokemon")
+// const pokemon = require("./models/pokemon")
+const Pokemon = require("./models/pokemonSchema.js")
 
 app.set('view engine', 'jsx');
 // app.engine('jsx', require('jsx-view-engine'));
@@ -14,30 +16,44 @@ app.engine('jsx', jsxEngine())
 
 dotenv.config()
 
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connection.once('open', ()=> {
+    console.log('connected to mongo');
+});
+
 app.use(express.urlencoded({extended:false}));
+
+app.use(methodOverride('_method'));
 
 app.use((req, res, next) => {
     console.log('I run for all routes');
     next();
 });
 
+app.use(express.static('public'));
+
 app.get('/', (req,res) =>{
     res.send('Welcome to the Pokemon App!');
 })
 
 //INDEX
-// app.get('/pokemon/', async (req,res) =>{
-//       // res.render('fruits/Index');
-//       try{
-//         const pokemon = await pokemon.find();
-//         res.render('Index', {pokemon: pokemon})
-//     }
-//     catch(error){
-//         console.error(error)
-//     }})
-app.get('/pokemon/', (req,res) =>{
-    res.render('Index', {pokemon: pokemon});
-})
+app.get('/pokemon/', async (req,res) =>{
+      // res.render('fruits/Index');
+      
+      try{
+        const pokemon = await Pokemon.find();
+    //     console.log(pokemon.name)
+    //   console.log(pokemon.img)
+    console.log(pokemon)
+        res.render('Index', {pokemon: pokemon})
+        // res.send("Ok")
+    }
+    catch(error){
+        console.error(error)
+    }})
+// app.get('/pokemon/', (req,res) =>{
+//     res.render('Index', {pokemon: pokemon});
+// })
  
 //NEW- Get the Form to add a new Pokemon
 
@@ -48,8 +64,8 @@ app.get('/pokemon/new', (req, res) => {
 //DELETE
 app.delete('/pokemon/:id', async(req, res)=>{
     try {
-    //  await pokemon.findByIdAndRemove(req.params.id)
-     await pokemon.splice(id,1)
+     await pokemon.findByIdAndRemove(req.params.id)
+    //  await pokemon.splice(id,1)
          res.redirect('/pokemon');//redirect back to pokemon index
      }catch(error){
          console.error(error)
@@ -58,7 +74,7 @@ app.delete('/pokemon/:id', async(req, res)=>{
 //UPDATE
 app.put("/pokemon/:id",  async (req, res) => {
     try {     
-       await pokemon.findByIdAndUpdate(req.params.id, req.body)
+       await Pokemon.findByIdAndUpdate(req.params.id, req.body)
     // await pokemon.splice(id,1)
   
       res.redirect("/pokemon")
@@ -72,9 +88,10 @@ app.put("/pokemon/:id",  async (req, res) => {
 app.post('/pokemon', async (req, res) => {
    
     // console.log(req.body)
-   await pokemon.push(req.body);
-  
-    console.log(pokemon)
+   await Pokemon.create(req.body);
+   console.log(req.body.name)
+//   pokemon.create(req.body)
+    // console.log(pokemon)
     // res.send('data received');
  
 
@@ -85,7 +102,8 @@ app.post('/pokemon', async (req, res) => {
 //EDIT
 app.get('/pokemon/:id/edit', async (req, res)=>{
     try {
-        const foundPokemon = await pokemon.findById(req.params.id)
+        const foundPokemon = await Pokemon.findById(req.params.id)
+         pokemon.push(req.body);
         res.render('pokemon/Edit', 
         {pokemon: foundPokemon})
     } catch(error) {
@@ -95,11 +113,14 @@ app.get('/pokemon/:id/edit', async (req, res)=>{
 
 
 //SHOW
-app.get('/pokemon/:id', (req, res) => {
-    // res.send(fruits[req.params.indexOfFruitsArray]);
-    res.render('Show', {
-        onePokemon: pokemon[req.params.id] //there will be a variable available inside the ejs file called fruit, its value is fruits[req.params.indexOfFruitsArray]
-});
+app.get('/pokemon/:id', async (req, res) => {
+
+try{
+    const pokemon = await Pokemon.findById(req.params._id);
+    res.render("Show", {pokemon: pokemon})
+}catch(error){
+    console.log(error)
+}
 });
 
 
