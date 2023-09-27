@@ -12,6 +12,7 @@ const back = {
 }
 const upperCase = {
     textTransform:'capitalize',
+    // textAlign: "Center"
 }
 
 
@@ -25,10 +26,10 @@ class Show extends React.Component {
        var loweredName = pokemon.name.toLowerCase()
        var loweredImg = pokemon.img.toLowerCase()
        const namejpg = url + loweredName + ".jpg"
-        console.log("Look HERE AGAIN")
 
         return (
               <div style = {myStyle}>
+
                   <h1>Gotta Catch 'Em All</h1>
                 <h2 style={upperCase}>
                 {pokemon.name}

@@ -4,11 +4,15 @@ const myStyle = {
   width: "300px",
   height: "25px",
   };
+  const myStyle2 = {
+    color: '#ffffff',
+    backgroundColor: '#000000',
+    };
 
 class New extends React.Component {
   render() {
     return (
-        <div>
+        <div style={myStyle2}>
             <h1>New Pokemon page</h1>
 
             <form action="/pokemon" method="POST">

@@ -4,11 +4,14 @@ const myStyle = {
   width: "300px",
   height: "25px",
   };
-
+  const myStyle2 = {
+    color: '#ffffff',
+    backgroundColor: '#000000',
+    };
 class Edit extends React.Component{
   render() {
     return (
-    <div>
+    <div style={myStyle2}>
         <h1>Pokemon Edit Page</h1>
           <form action={`/pokemon/${this.props.pokemon._id}?_method=PUT`} method="POST"> 
 

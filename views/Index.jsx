@@ -18,6 +18,8 @@ const back = {
 const pokemonName = {
     color: "white",
 }
+
+
 class Index extends React.Component {
   render() {
       const { pokemon } = this.props;
@@ -42,6 +44,7 @@ class Index extends React.Component {
                         <nav>
                         <a style={back}
                         href="/pokemon/new">Submit a New Pokemon</a>
+                        
                         </nav>
               </div>
       );
