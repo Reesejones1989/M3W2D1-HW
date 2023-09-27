@@ -29,12 +29,12 @@ class Index extends React.Component {
                           return (
                               <li key ={i} style = {upperCase}>
                                   
-                                  <a style={pokemonName} href={`/pokemon/${pokemon._id}`}>
+                                  <a style={pokemonName} href={`/pokemon/${onePokemon.id}`}>
                                       {onePokemon.name}
                                   </a>{' '}
-                                  <form action={`/pokemon/${pokemon._id}?_method=DELETE`} method="POST"><input type="submit" value="DELETE"/>
+                                  <form action={`/pokemon/${onePokemon._id}?_method=DELETE`} method="POST"><input type="submit" value="DELETE"/>
                                  </form> 
-                      {/* <a href={`/pokemon/${i}/edit`}>Edit This Pokemon</a> */}
+                      <a href={`/pokemon/${onePokemon._id}/edit`}>Edit This Pokemon</a>
                               </li>
                           );
                       })}

@@ -1,5 +1,10 @@
 const React = require('react');
 
+const myStyle = {
+  width: "300px",
+  height: "25px",
+  };
+
 class New extends React.Component {
   render() {
     return (
@@ -8,8 +13,9 @@ class New extends React.Component {
 
             <form action="/pokemon" method="POST">
               Name: <input type="text" name="name" /><br/>
-              Image Link: <input type="text" defaultValue = "https://img.pokemondb.net/artwork/" name="img" />
+              Image Link: <input style={myStyle} type="text" defaultValue = "https://img.pokemondb.net/artwork/" name="img" />
               <input type="submit" name="" value="New Pokemon Submit"/>
+              <h2>Add the Pokemon Name to the Image Link textbox above as well</h2>
             </form>
         </div>);
     }

@@ -16,7 +16,7 @@ app.engine('jsx', jsxEngine())
 
 dotenv.config()
 
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: false });
 mongoose.connection.once('open', ()=> {
     console.log('connected to mongo');
 });
@@ -44,7 +44,7 @@ app.get('/pokemon/', async (req,res) =>{
         const pokemon = await Pokemon.find();
     //     console.log(pokemon.name)
     //   console.log(pokemon.img)
-    console.log(pokemon)
+    console.log("CATCH THEM ALL" + pokemon)
         res.render('Index', {pokemon: pokemon})
         // res.send("Ok")
     }
@@ -64,8 +64,8 @@ app.get('/pokemon/new', (req, res) => {
 //DELETE
 app.delete('/pokemon/:id', async(req, res)=>{
     try {
-     await pokemon.findByIdAndRemove(req.params.id)
-    //  await pokemon.splice(id,1)
+     await Pokemon.findByIdAndRemove(req.params.id)
+    console.log(Pokemon)
          res.redirect('/pokemon');//redirect back to pokemon index
      }catch(error){
          console.error(error)
@@ -75,7 +75,6 @@ app.delete('/pokemon/:id', async(req, res)=>{
 app.put("/pokemon/:id",  async (req, res) => {
     try {     
        await Pokemon.findByIdAndUpdate(req.params.id, req.body)
-    // await pokemon.splice(id,1)
   
       res.redirect("/pokemon")
   
@@ -89,7 +88,7 @@ app.post('/pokemon', async (req, res) => {
    
     // console.log(req.body)
    await Pokemon.create(req.body);
-   console.log(req.body.name)
+   console.log(req.body)
 //   pokemon.create(req.body)
     // console.log(pokemon)
     // res.send('data received');
@@ -103,8 +102,8 @@ app.post('/pokemon', async (req, res) => {
 app.get('/pokemon/:id/edit', async (req, res)=>{
     try {
         const foundPokemon = await Pokemon.findById(req.params.id)
-         pokemon.push(req.body);
-        res.render('pokemon/Edit', 
+        //  Pokemon.push(req.body);
+        res.render('Edit', 
         {pokemon: foundPokemon})
     } catch(error) {
         console.log(error)
@@ -115,13 +114,24 @@ app.get('/pokemon/:id/edit', async (req, res)=>{
 //SHOW
 app.get('/pokemon/:id', async (req, res) => {
 
-try{
-    const pokemon = await Pokemon.findById(req.params._id);
-    res.render("Show", {pokemon: pokemon})
-}catch(error){
-    console.log(error)
-}
-});
+// try{
+//     console.log("LOOK HERE")
+//     const pokemon = await Pokemon.findById(req.params.id);
+//     // console.log(pokemon.name)
+//     res.render("Show", {pokemon: pokemon})
+// }catch(error){
+//     console.log(error)
+// }
+// });
+    try{
+           console.log("LOOK HERE")
+
+        const pokemon = await Pokemon.findById(req.params.id);
+        res.render("Show", {pokemon: pokemon})
+    }catch(error){
+        console.log(error)
+    }
+    });
 
 
 
